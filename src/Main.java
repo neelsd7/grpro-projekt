@@ -25,7 +25,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("src/input/t1-1c.txt");
+        File file = new File("src/input/t1-1a.txt");
         List<Input> input; 
         InputReader ir; 
         try {
@@ -83,7 +83,9 @@ public class Main {
     private static void displayInformationSetup(Program p) {
         DisplayInformation burrow = new DisplayInformation(Color.black, "hole", true); 
         DisplayInformation grass = new DisplayInformation(Color.green, "grass", true); 
-        DisplayInformation rabbit = new DisplayInformation(Color.white, "rabbit-small", true); 
+
+        // kanin skal have en dynamisk display information
+        DisplayInformation rabbit = new DisplayInformation(Color.white, "rabbit-small", false); 
         
         p.setDisplayInformation(Burrow.class, burrow);
         p.setDisplayInformation(Grass.class, grass);
