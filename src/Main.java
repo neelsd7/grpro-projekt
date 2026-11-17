@@ -1,20 +1,16 @@
+import elements.*;
+import itumulator.executable.DisplayInformation;
+import itumulator.executable.Program;
+import itumulator.world.Location;
+import itumulator.world.NonBlocking;
+import itumulator.world.World;
+import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Random;
-
-import java.awt.Color; 
-
 import setup.Input;
-import setup.InputReader;
-import itumulator.executable.DisplayInformation;
-import itumulator.executable.Program; 
-import itumulator.world.World; 
-import itumulator.world.Location; 
-import itumulator.world.NonBlocking; 
-
-import elements.*; 
-
-import java.io.File; 
-import java.io.FileNotFoundException; 
+import setup.InputReader; 
 
 public class Main {
 
@@ -25,7 +21,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("src/input/t1-1a.txt");
+        File file = new File("src/input/t1-2cde.txt");
         List<Input> input; 
         InputReader ir; 
         try {

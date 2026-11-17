@@ -1,7 +1,12 @@
 package elements;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import itumulator.simulator.Actor;
 import itumulator.world.World; 
+import itumulator.world.Location;
 
 /*
     - k1-2b. Kaniner kan dø, hvilket resulterer I at de fjernes fra verdenen.
@@ -36,13 +41,23 @@ public class Rabbit implements Actor {
         }
 
         // kaniner dør uden mad
-        if(eatTimer % 20 == 0) {
+             if(eatTimer % 20 == 0) {
             die(world); 
         }
 
-        /*
-            kaniners alder bestemmer hvor meget energi de har (?)
-        */
+        
+            //kaniners alder bestemmer hvor meget energi de har (?)
+            if(age <= 10){
+                // kaninen har meget energi
+                
+            } else if(age <= 20){
+                // kaninen har lidt energi
+
+            } else {
+                // når kaninen har ingen energi dør den
+             die(world);
+            }
+        
 
         // kaniner kan reproducere 
         if(age % 25 == 0) { // eller måske hvis der står en kanin på en naboplads
@@ -61,17 +76,33 @@ public class Rabbit implements Actor {
     }
 
     private void die(World world) {
-        world.remove(this); 
+        world.delete(this); 
     }
 
     private void eat(World world) {
-        if(world.getTile(world.getLocation(this)) instanceof Grass){
+        Location currentLocation = world.getLocation(this);
+        if(world.getTile(currentLocation) instanceof Grass == true){
             // fjern græsset på denne tile (= det bliver spist)
+            world.delete(world.getTile(world.getLocation(this)));
+            eatTimer = 0;
         } else {
             // move til en naboplads der har græs
+            moveToNeighbor(world);
+            eatTimer = 0;
             // fjern græsset
         }
     }
+
+        //Rykker kaninen til en ledig NonBlocking-tile, hvor der er græs
+    private void moveToNeighbor(World world) {
+        Set<Location> neighbors = world.getEmptySurroundingTiles();
+        for (Location neighbor : neighbors) {
+            if (world.isTileEmpty(neighbor) == true) {
+                world.move(this, neighbor);
+            } 
+        }
+    }
+
 
     private void reproduce(World world) {
         // move til en anden plads med en kanin
@@ -90,4 +121,5 @@ public class Rabbit implements Actor {
         // flyt kanin til burrow
         // burrow.enter(); måske? 
     }
+
 }
