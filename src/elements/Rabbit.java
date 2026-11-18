@@ -7,6 +7,7 @@ import java.util.Set;
 import itumulator.simulator.Actor;
 import itumulator.world.World; 
 import itumulator.world.Location;
+import itumulator.world.NonBlocking;
 
 /*
     - k1-2b. Kaniner kan dø, hvilket resulterer I at de fjernes fra verdenen.
@@ -23,8 +24,8 @@ public class Rabbit implements Actor {
     private int age; 
     private int eatTimer; 
     private Burrow burrow;
-    private Grass grass;
     private int tick;
+    
 
     public Rabbit() {
         age = 0; 
@@ -37,34 +38,35 @@ public class Rabbit implements Actor {
         age++; 
         eatTimer++; 
         tick++;
-        
+    
+
         // kaniner skal spise græs 
-        if(age % 15 == 0) {
+        /*if(age % 15 == 0) {
            // eat(world); 
             eatTimer = 0; 
-        }
+        }*/
 
         // kaniner dør uden mad
-        if(eatTimer % 20 == 0) {
+         if(eatTimer >= 40) {
             die(world); 
         }
 
-        
-            //kaniners alder bestemmer hvor meget energi de har (?)
-        if(11<= age && age <= 20){
-           if (tick % 2 == 0) {
+        //Hvis kaniner er over 50 år, hopper de hver 8. tick
+        if (age >= 50) {
+            if (tick % 8 == 0) {
                 moveToNeighbor(world);
             }
-        } else if(age <= 10){
-                 // kaninen har meget energi
+        //Hvis kaniner er mellem 30-49 år hopper de hver 5. tick
+        } else if (age >= 30 && age <= 49){ 
+            if (tick % 5 == 0) {
                 moveToNeighbor(world);
-        }  else {
-                // kaninen har ingen energi 
-            if (tick % 4 == 0) {
-               moveToNeighbor(world);
-                }
-        }
-        
+            }
+        //Ellers hopper de hver 2. tick
+        } else {
+            if (tick % 2 == 0) {
+                moveToNeighbor(world);
+            }
+        }     
 
         // kaniner kan reproducere 
         if(age % 25 == 0) { // eller måske hvis der står en kanin på en naboplads
@@ -87,18 +89,16 @@ public class Rabbit implements Actor {
     }
 
       private void eat(World world) {
-        if(world.getLocation(grass) == world.getLocation(this)) {
+        Location currenLocation = world.getLocation(this);
+
+        if(world.getLocation(currenLocation) instanceof NonBlocking) {
             // fjern græsset på denne tile (= det bliver spist)
-            grass.remove(world);
-            eatTimer = 0;
+            System.out.println("True if");
+           // eatTimer = 0;
         } else {
             // move til en naboplads der har græs
             moveToNeighbor(world);
-            eatTimer = 0;
-            // fjern græsset
-            grass.remove(world);
-            
-        
+            // fjern græsset          
         }
     }
 

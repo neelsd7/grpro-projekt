@@ -26,6 +26,7 @@ public class Grass implements NonBlocking, Actor {
         if(world.isDay() && world.getCurrentTime() % spreadSpeed == 0) {
             spread(world); 
         }
+       
     }
 
     // kunne skabe problemer hvis et andet græs objekt spreder sig på samme tid? 
@@ -51,5 +52,9 @@ public class Grass implements NonBlocking, Actor {
 
     public void remove(World world) {
         world.delete(this);
+    }
+
+    public Location getLocation(World world) {
+        return world.getLocation(this);
     }
 }
