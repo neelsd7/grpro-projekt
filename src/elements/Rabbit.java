@@ -22,41 +22,48 @@ import itumulator.world.Location;
 public class Rabbit implements Actor {
     private int age; 
     private int eatTimer; 
-    private Burrow burrow; 
+    private Burrow burrow;
+    private Grass grass;
+    private int tick;
 
     public Rabbit() {
         age = 0; 
         eatTimer = 0; 
+        tick = 0;
     }
 
     @Override
     public void act(World world) {
         age++; 
         eatTimer++; 
-
+        tick++;
+        
         // kaniner skal spise græs 
         if(age % 15 == 0) {
-            eat(world); 
+           // eat(world); 
             eatTimer = 0; 
         }
 
         // kaniner dør uden mad
-             if(eatTimer % 20 == 0) {
+        if(eatTimer % 20 == 0) {
             die(world); 
         }
 
         
             //kaniners alder bestemmer hvor meget energi de har (?)
-            if(age <= 10){
-                // kaninen har meget energi
-                
-            } else if(age <= 20){
-                // kaninen har lidt energi
-
-            } else {
-                // når kaninen har ingen energi dør den
-             die(world);
+        if(11<= age && age <= 20){
+           if (tick % 2 == 0) {
+                moveToNeighbor(world);
             }
+        } else if(age <= 10){
+                 // kaninen har meget energi
+                moveToNeighbor(world);
+        }  else {
+                // kaninen har ingen energi 
+            if (tick % 4 == 0) {
+               moveToNeighbor(world);
+                }
+        }
         
 
         // kaniner kan reproducere 
@@ -79,17 +86,19 @@ public class Rabbit implements Actor {
         world.delete(this); 
     }
 
-    private void eat(World world) {
-        Location currentLocation = world.getLocation(this);
-        if(world.getTile(currentLocation) instanceof Grass == true){
+      private void eat(World world) {
+        if(world.getLocation(grass) == world.getLocation(this)) {
             // fjern græsset på denne tile (= det bliver spist)
-            world.delete(world.getTile(world.getLocation(this)));
+            grass.remove(world);
             eatTimer = 0;
         } else {
             // move til en naboplads der har græs
             moveToNeighbor(world);
             eatTimer = 0;
             // fjern græsset
+            grass.remove(world);
+            
+        
         }
     }
 
@@ -120,6 +129,15 @@ public class Rabbit implements Actor {
     private void sleep(World world) {
         // flyt kanin til burrow
         // burrow.enter(); måske? 
-    }
+        if(world.isNight() == true) {
+            if(burrow != null) {
+               burrow.enter(this); // burrow.enter() ikke lavet endnu
+                // kaninen sover i hul
+                // kaniner kan kunne være tilknytte et burrrow?
+            }
+    
 
+        }
+    }
 }
+

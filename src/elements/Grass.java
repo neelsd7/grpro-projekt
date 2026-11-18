@@ -14,6 +14,8 @@ import itumulator.simulator.Actor;
 public class Grass implements NonBlocking, Actor {
     Random r; 
     int spreadSpeed; 
+    Rabbit rabbit;
+
     
     public Grass() {
         r = new Random(); 
@@ -45,5 +47,9 @@ public class Grass implements NonBlocking, Actor {
             Location l = list.get(randomNeighborTile); 
             world.setTile(l, new Grass()); 
         }
+    }
+
+    public void remove(World world) {
+        world.delete(this);
     }
 }

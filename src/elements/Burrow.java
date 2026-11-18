@@ -12,4 +12,9 @@ public class Burrow implements NonBlocking {
     public boolean isNonBlocking() {
         return true; 
     }
+
+public void enter(Object object) {
+    // This method can be used to define behavior when an entity enters the burrow.
+    //if()
+}
 }
