@@ -15,7 +15,7 @@ public class Grass implements NonBlocking, Actor {
     Random r; 
     int spreadSpeed; 
     Rabbit rabbit;
-
+    
     
     public Grass() {
         r = new Random(); 

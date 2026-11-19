@@ -35,6 +35,8 @@ public class Rabbit implements Actor {
 
     @Override
     public void act(World world) {
+        
+
         age++; 
         eatTimer++; 
         tick++;
@@ -113,31 +115,49 @@ public class Rabbit implements Actor {
     }
 
 
+
     private void reproduce(World world) {
         // move til en anden plads med en kanin
+        moveToNeighbor(world);
+        if(world.isTileEmpty(world.getLocation(this)) == false) {
+         world.move(this, world.getLocation(this));
+            // der er en kanin på nabopladsen
+            // kaninen kan reproducere
+        }
         // måske graver den et hul til sin lille kanin? 
         dig(world); 
-        // sætter en ny lille kanin på en naboplads (eller i hul)
+        new Rabbit();
     }
 
     private void dig(World world) {
-        burrow = new Burrow(); 
-        // location l = ? 
-        // world.setTile(l, burrow); 
+        Location rabbitLocation = world.getLocation(this);
+        Burrow newBurrow = new Burrow();
+        if (!world.containsNonBlocking(rabbitLocation)) {
+            burrow = newBurrow;
+            world.setTile(rabbitLocation, burrow);
+            return;
+        }
+
+        for (Location neighbor : world.getSurroundingTiles(rabbitLocation)) {
+            if (!world.containsNonBlocking(neighbor)) {
+                burrow = newBurrow;
+                world.setTile(neighbor, burrow);
+                return;
+            }
+        }
+        burrow = null;
     }
 
-    private void sleep(World world) {
-        // flyt kanin til burrow
-        // burrow.enter(); måske? 
-        if(world.isNight() == true) {
-            if(burrow != null) {
-               burrow.enter(this); // burrow.enter() ikke lavet endnu
-                // kaninen sover i hul
-                // kaniner kan kunne være tilknytte et burrrow?
-            }
-    
-
+    /*private void sleep(World world) {
+        if (world.isNight() && burrow != null) {
+            burrow.enter(this, world);
         }
     }
+    private void wakeUp(World world) {
+        if (burrow != null && burrow.isInside(this)) {
+            if (world.isDay()) {
+                burrow.exit(this, world);
+            }
+        }
+    }*/
 }
-
