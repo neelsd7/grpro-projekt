@@ -1,32 +1,30 @@
 package setup;
 
 import elements.*; 
+import java.util.Random; 
 
 /* Repræsenterer en linje i en input fil (alle andre linjer end size linjen) */
 public class Input {
     private String type; 
     private int amount; 
-
-    private boolean isInterval; 
-    private int min; private int max; 
-
     private boolean hasCoordinates; 
-    private int x; private int y; 
+    private int[] coordinates;  
 
     // eksempel: grass 10
     public Input(String type, int amount) {
         this.type = type.toLowerCase(); 
         this.amount = amount; 
-        isInterval = false; 
+
         hasCoordinates = false; 
     }
 
     // eksempel: grass 10-15
     public Input(String type, int min, int max) {
         this.type = type.toLowerCase(); 
-        this.min = min;
-        this.max = max; 
-        isInterval = true; 
+
+        Random r = new Random(); 
+        amount =  min + r.nextInt(max - min); 
+
         hasCoordinates = false; 
     }
 
@@ -34,9 +32,9 @@ public class Input {
     public Input(String type, int amount, int x, int y) {
         this.type = type.toLowerCase(); 
         this.amount = amount; 
-        this.x = x; 
-        this.y = y; 
-        isInterval = false; 
+        
+        coordinates[0] = x; 
+        coordinates[1] = y; 
         hasCoordinates = true; 
     }
 
@@ -64,31 +62,21 @@ public class Input {
         return amount; 
     }
 
-    public int getMin() {
-        return min; 
-    }
-
-    public int getMax() {
-        return max; 
-    }
-
-    public boolean isInterval() {
-        return isInterval; 
-    }
-
     public String getType() {
         return type; 
     }
 
+    public boolean hasCoordinates() { 
+        return hasCoordinates; 
+    }
+
+    public int[] getCoordinates() {
+        return coordinates; 
+    }
+
     // til fejlfinding
     public String toString() {
-        String s; 
-        if(isInterval) {
-            s = "amount interval: " + min + "-" + max; 
-        } else {
-            s = "amount: " + amount; 
-        }
-        return "type: " + type + ". " + s; 
+        return "type: " + type + " amount: " + amount + ". "; 
     }
 
 }
