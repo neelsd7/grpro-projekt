@@ -1,16 +1,13 @@
 import elements.*;
+import setup.*; 
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.Program;
-import itumulator.world.Location;
-import itumulator.world.NonBlocking;
 import itumulator.world.World;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Random;
-import setup.Input;
-import setup.InputReader; 
 
 public class Main {
 
@@ -30,7 +27,8 @@ public class Main {
             input = ir.getInput(); 
         } catch (FileNotFoundException e) {
             size = 0; input = null; 
-            System.out.println(e.getMessage()); 
+            System.out.println("Fejl i file i Main.java. Lukker program. " + e.getMessage()); 
+            System.exit(0); 
         }
 
         // opretter program og henter verden 
@@ -40,39 +38,12 @@ public class Main {
         displayInformationSetup(p); 
         
         // placerer elementerne fra input-filen i verden
-        placeElementsInWorld(world, input); 
+        new ElementPlacer(world, input); 
 
+        // viser simulationen 
         p.show(); 
-
         for(int i = 0; i < 200; i++) {
             p.simulate(); 
-        }
-    }
-
-    private static void placeElementsInWorld(World world, List<Input> elements) {
-        Random r = new Random(); 
-        int size = world.getSize(); 
-
-        // placerer alle elementerne beskrevet i input-filen i verden 
-        for(Input element : elements) {
-            // hvor mange objekter af elementet skal oprettes
-            int amount; 
-            if(element.isInterval()) { // vælg tilfældigt tal inden for intervallet: 
-                amount =  element.getMin() + r.nextInt(element.getMax() - element.getMin()); 
-            } else {
-                amount = element.getAmount(); 
-            }
-
-            // opretter et passende antal objekter
-            for(int i = 0; i < amount; i++) {
-                Object object = element.createObject(); 
-                Location l = new Location(r.nextInt(size), r.nextInt(size)); 
-
-                while(object instanceof NonBlocking && world.containsNonBlocking(l) || !(object instanceof NonBlocking) && !(world.isTileEmpty(l))) {
-                    l = new Location(r.nextInt(size), r.nextInt(size)); 
-                }
-                world.setTile(l, object); 
-            }
         }
     }
 
@@ -80,11 +51,18 @@ public class Main {
         DisplayInformation burrow = new DisplayInformation(Color.black, "hole", true); 
         DisplayInformation grass = new DisplayInformation(Color.green, "grass", true); 
 
-        // kanin skal have en dynamisk display information
+        // skal ændres til dynamisk display: 
         DisplayInformation rabbit = new DisplayInformation(Color.white, "rabbit-small", false); 
+        DisplayInformation bear = new DisplayInformation(Color.white, "bear", false); 
+        DisplayInformation berries = new DisplayInformation(Color.white, "bush-berries", false); 
+        DisplayInformation wolf = new DisplayInformation(Color.white, "wolf", false); 
         
         p.setDisplayInformation(Burrow.class, burrow);
         p.setDisplayInformation(Grass.class, grass);
         p.setDisplayInformation(Rabbit.class, rabbit);
+        p.setDisplayInformation(Rabbit.class, rabbit);
+        p.setDisplayInformation(Bear.class, bear);
+        p.setDisplayInformation(Berry.class, berries);
+        p.setDisplayInformation(Wolf.class, wolf);
     }
 }
