@@ -14,13 +14,13 @@ kaniner. Huller bliver tilfældigt placeret når de indgår i en input fil.
 */
 
 public class Burrow implements NonBlocking {
-    //private Map<Rabbit, Location> sleepingRabbits = new HashMap<>();
+    private Map<Rabbit, Location> sleepingRabbits = new HashMap<>();
 
     public boolean isNonBlocking() {
         return true; 
     }
 
-    /*public void enter(Rabbit rabbit, World world) {
+    public void enter(Rabbit rabbit, World world) {
         Location location = world.getLocation(rabbit);
         world.remove(rabbit);
         sleepingRabbits.put(rabbit, location);
@@ -35,6 +35,6 @@ public class Burrow implements NonBlocking {
             world.setTile(location, rabbit);
             sleepingRabbits.remove(rabbit);
         }
-    }*/
+    }
 }
 
