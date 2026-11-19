@@ -4,6 +4,7 @@ import java.util.Map;
 
 import itumulator.world.NonBlocking;
 import itumulator.world.World; 
+import itumulator.world.Location; 
 
 /*
 K1-3a. Huller kan enten blive indsat når input filerne beskriver dette, eller graves af
@@ -33,5 +34,4 @@ public void enter(Rabbit rabbit, World world) {
             sleepingRabbits.remove(rabbit);
         }
     }
-}
 }
