@@ -86,7 +86,8 @@ public class Rabbit implements Actor {
                 eatTimer = 0;
             }
         }
-        //Rykker kaninen til en ledig NonBlocking-tile, hvor der er græs
+    
+    //Rykker kaninen til en ledig NonBlocking-tile, hvor der er græs
     private void moveRandomly (World world) {
         Set<Location> neighbours = world.getEmptySurroundingTiles();
         List<Location> list = new ArrayList<>(neighbours);

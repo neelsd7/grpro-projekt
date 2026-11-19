@@ -51,7 +51,7 @@ public class Input {
             case "bear": 
                 return new Bear(); 
             case "berry": 
-                return new Berry(); 
+                return new BerryBush(); 
             default: 
                 return null; 
         }

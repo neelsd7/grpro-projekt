@@ -9,6 +9,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+/*
+to do: 
+    skriv om relevante rabbit og burrow designvalg i dagbog 
+    animal skal blive superklasse til rabbit, wolf, bear
+
+    dynamisk display til alle andre elements end græs 
+
+    implementer krav til bear, wolf, berrybush
+    evt. lav interface Eatable til grass og berrybush 
+
+    lav tests til world setup
+
+    design tests til alle krav fra tema1 og tema2 (skitser assersions i word dokument først) 
+*/
+
 public class Main {
 
     public static void main(String[] args) { 
@@ -18,7 +33,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("resources/input/t1-2cde.txt");
+        File file = new File("resources/input/t2-1ab.txt");
         List<Input> input; 
         InputReader ir; 
         try {
@@ -62,7 +77,7 @@ public class Main {
         p.setDisplayInformation(Rabbit.class, rabbit);
         p.setDisplayInformation(Rabbit.class, rabbit);
         p.setDisplayInformation(Bear.class, bear);
-        p.setDisplayInformation(Berry.class, berries);
+        p.setDisplayInformation(BerryBush.class, berries);
         p.setDisplayInformation(Wolf.class, wolf);
     }
 }
