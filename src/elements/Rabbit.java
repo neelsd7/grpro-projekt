@@ -91,7 +91,7 @@ public class Rabbit implements Actor {
       private void eat(World world) {
         Location currenLocation = world.getLocation(this);
 
-        if(world.getLocation(currenLocation) instanceof NonBlocking) {
+        if(world.getNonBlocking(currenLocation) instanceof NonBlocking) {
             // fjern græsset på denne tile (= det bliver spist)
             System.out.println("True if");
            // eatTimer = 0;
