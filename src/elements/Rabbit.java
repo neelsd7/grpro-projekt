@@ -92,7 +92,9 @@ public class Rabbit implements Actor {
     }
 
       private void eat(World world) {
-        if(world.getLocation(grass) == world.getLocation(this)) {
+        Location currenLocation = world.getLocation(this);
+
+        if(world.getNonBlocking(currenLocation) instanceof NonBlocking) {
             // fjern græsset på denne tile (= det bliver spist)
             grass.remove(world);
             eatTimer = 0;
