@@ -40,6 +40,11 @@ public class Rabbit implements Actor {
         eatTimer++; 
         tick++;
 
+        if (burrow != null && burrow.isInside(this)) {
+            wakeUp(world);
+            return;
+        }
+
         //Hvis kaniner er over 50 år, hopper de hver 8. tick
         if (age >= 50) {
             if (tick % 8 == 0) {
@@ -112,11 +117,23 @@ public class Rabbit implements Actor {
     }
 
     private void dig(World world) {
-        burrow = new Burrow(); 
-        // location l = ? 
-        // world.setTile(l, burrow); 
+        Location rabbitLocation = world.getLocation(this);
+        Burrow newBurrow = new Burrow();
+        if (!world.containsNonBlocking(rabbitLocation)) {
+            burrow = newBurrow;
+            world.setTile(rabbitLocation, burrow);
+            return;
+        }
+ 
+        for (Location neighbor : world.getSurroundingTiles(rabbitLocation)) {
+            if (!world.containsNonBlocking(neighbor)) {
+                burrow = newBurrow;
+                world.setTile(neighbor, burrow);
+                return;
+            }
+        }
+        burrow = null;
     }
-
     /*private void moveToGrass(World world) {
         Location currentLocation = world.getLocation(this);
         Set<Location> surroundingTiles = world.getSurroundingTiles(currentLocation);
@@ -135,17 +152,17 @@ public class Rabbit implements Actor {
             } else return false;
     }
 
-    private void sleep(World world) {
-        // flyt kanin til burrow
-        // burrow.enter(); måske? 
-        if(world.isNight() == true) {
-            if(burrow != null) {
-               burrow.enter(this); // burrow.enter() ikke lavet endnu
-                // kaninen sover i hul
-                // kaniner kan kunne være tilknytte et burrrow?
-            }
     
-
+  private void sleep(World world) {
+        if (world.isNight() && burrow != null) {
+            burrow.enter(this, world);
+        }
+    }
+    private void wakeUp(World world) {
+        if (burrow != null && burrow.isInside(this)) {
+            if (world.isDay()) {
+                burrow.exit(this, world);
+            }
         }
     }
 }
