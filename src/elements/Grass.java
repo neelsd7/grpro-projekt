@@ -49,12 +49,4 @@ public class Grass implements NonBlocking, Actor {
             world.setTile(l, new Grass()); 
         }
     }
-
-    public void remove(World world) {
-        world.delete(this);
-    }
-
-    public Location getLocation(World world) {
-        return world.getLocation(this);
-    }
 }

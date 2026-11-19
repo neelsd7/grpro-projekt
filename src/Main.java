@@ -21,7 +21,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("resources/input/t1-1a.txt");
+        File file = new File("resources/input/t1-2cde.txt");
         List<Input> input; 
         InputReader ir; 
         try {
