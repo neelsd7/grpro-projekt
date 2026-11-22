@@ -33,7 +33,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("resources/input/t2-1ab.txt");
+        File file = new File("resources/input/t1-2fg.txt");
         List<Input> input; 
         InputReader ir; 
         try {
@@ -63,21 +63,21 @@ public class Main {
     }
 
     private static void displayInformationSetup(Program p) {
+        //Statiske displays
         DisplayInformation burrow = new DisplayInformation(Color.black, "hole", true); 
         DisplayInformation grass = new DisplayInformation(Color.green, "grass", true); 
 
-        // skal ændres til dynamisk display: 
-        DisplayInformation rabbit = new DisplayInformation(Color.white, "rabbit-small", false); 
-        DisplayInformation bear = new DisplayInformation(Color.white, "bear", false); 
-        DisplayInformation berries = new DisplayInformation(Color.white, "bush-berries", false); 
-        DisplayInformation wolf = new DisplayInformation(Color.white, "wolf", false); 
+        //Dynamiske displays 
+        DisplayInformation rabbit = new Rabbit().getInformation();
+        DisplayInformation bear = new Bear().getInformation();
+        //DisplayInformation berries = new BerryBush().getInformation(world);
+        DisplayInformation wolf = new Wolf().getInformation();
         
         p.setDisplayInformation(Burrow.class, burrow);
         p.setDisplayInformation(Grass.class, grass);
         p.setDisplayInformation(Rabbit.class, rabbit);
-        p.setDisplayInformation(Rabbit.class, rabbit);
         p.setDisplayInformation(Bear.class, bear);
-        p.setDisplayInformation(BerryBush.class, berries);
+       // p.setDisplayInformation(BerryBush.class, berries);
         p.setDisplayInformation(Wolf.class, wolf);
     }
 }

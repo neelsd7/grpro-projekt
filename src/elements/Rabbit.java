@@ -1,10 +1,13 @@
 package elements;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Random;
 
+import itumulator.executable.DisplayInformation;
+import itumulator.executable.DynamicDisplayInformationProvider;
 import itumulator.simulator.Actor;
 import itumulator.world.World; 
 import itumulator.world.Location;
@@ -21,7 +24,7 @@ import itumulator.world.NonBlocking;
     et krav at kaniner når hen til deres huller.
 */
 
-public class Rabbit implements Actor {
+public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     private int age; 
     private int eatTimer; 
     private Burrow burrow;
@@ -51,9 +54,7 @@ public class Rabbit implements Actor {
         //Hvis kaniner står på græs, så spiser de det
         eat(world);
 
-        // kaniner kan reproducere 
-         // eller måske hvis der står en kanin på en naboplads'
-        if (age >= 10 && age <= 27) {
+        if (age >= 10 && age <= 50) {
         reproduce(world);  
         }
         
@@ -68,16 +69,17 @@ public class Rabbit implements Actor {
             }
         }
 
-        // kaniner dør uden mad
-            die(world); 
+        die(world); 
     }
 
+    //Hvis ikke kaninerne får mad inden 40 ticks, dør de
     private void die(World world) {
         if (eatTimer >= 40) {
         world.delete(this); 
         }
     }
 
+    //Kaninerne spiser græs, hvis de står på en tile med det
       private void eat(World world) {
         Location currenLocation = world.getLocation(this);
         Object grass = world.getNonBlocking(currenLocation);
@@ -97,6 +99,7 @@ public class Rabbit implements Actor {
         world.move(this,l);
     }
 
+    //Kaninernes reproduktionsfunktion
     private void reproduce(World world) {
         Location currentLocation = world.getLocation(this);
         Set<Location> emptySurroundingTiles = world.getEmptySurroundingTiles(currentLocation);
@@ -113,22 +116,11 @@ public class Rabbit implements Actor {
                 }
             }
         }        
-    }
-                //world.setTile(surround, new Rabbit());
 
 
-        /*for (Location location : locations) {
-            if (world.getTile(location) instanceof Rabbit){
-                object = world.getTile(location);
-                if (world.isTileEmpty(location) == true) {
-                dig(world);
-                world.setTile(location, new Rabbit());
-            }
-        }*/
-    
+    } 
 
-
-
+    //Kaninernes grave-funktion
     private void dig(World world) {
         Location rabbitLocation = world.getLocation(this);
         Burrow newBurrow = new Burrow();
@@ -138,16 +130,17 @@ public class Rabbit implements Actor {
             return;
         }
  
-        for (Location neighbor : world.getSurroundingTiles(rabbitLocation)) {
+       /* for (Location neighbor : world.getSurroundingTiles(rabbitLocation)) {
             if (!world.containsNonBlocking(neighbor)) {
                 burrow = newBurrow;
                 world.setTile(neighbor, burrow);
                 return;
             }
-        }
+        }*/
         burrow = null;
     }
 
+    //Tjekker om en tile er græs - bruges til eat()-funktion
     private boolean isTileGrass(World world) {
         Location currenLocation = world.getLocation(this);
         Set<Location> surroundingTiles = world.getSurroundingTiles(currenLocation);
@@ -156,12 +149,14 @@ public class Rabbit implements Actor {
             } else return false;
     }
 
-  private void sleep(World world) {
+    //Kaninen lægger sig til at sove vha. Burrow-klassens enter()-funktion
+    private void sleep(World world) {
         if (world.isNight() && burrow != null) {
             burrow.enter(this, world);
         }
     }
     
+    //Kaninen våger vha. Burrow-klassens exit()-funktion
     private void wakeUp(World world) {
         if (burrow != null && burrow.isInside(this)) {
             if (world.isDay()) {
@@ -170,6 +165,7 @@ public class Rabbit implements Actor {
         }
     }
 
+    //Kaninernes adfærd, styret af deres age
     private void Energy(World world) {
         //Hvis kaniner er over 50 år, hopper de hver 8. tick
         if (age >= 50) {
@@ -187,6 +183,16 @@ public class Rabbit implements Actor {
                 moveRandomly(world); 
             }
         } 
+    }
+
+    //Information til DynamicDisplayInformationProvider
+    public DisplayInformation getInformation() {
+        DisplayInformation DI;
+        if (age < 40) {
+            return DI = new DisplayInformation(Color.white, "rabbit-small", false);
+        } else {
+            return DI = new DisplayInformation(Color.white, "rabbit-large", false);
+        }
     }
 }
 
