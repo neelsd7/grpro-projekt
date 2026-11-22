@@ -76,8 +76,8 @@ public class Main {
         p.setDisplayInformation(Burrow.class, burrow);
         p.setDisplayInformation(Grass.class, grass);
         p.setDisplayInformation(Rabbit.class, rabbit);
-        p.setDisplayInformation(Bear.class, bear);
+        //p.setDisplayInformation(Bear.class, bear);
        // p.setDisplayInformation(BerryBush.class, berries);
-        p.setDisplayInformation(Wolf.class, wolf);
+        //p.setDisplayInformation(Wolf.class, wolf);
     }
 }
