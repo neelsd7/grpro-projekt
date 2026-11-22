@@ -3,13 +3,13 @@ package elements;
 import itumulator.simulator.Actor;
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.DynamicDisplayInformationProvider; 
-; 
+
 import itumulator.world.World; 
 
 
 public class Animal implements Actor, DynamicDisplayInformationProvider {
     public DisplayInformation getInformation() {
-        
+        return null; 
     }
 
     public void act(World world) {
