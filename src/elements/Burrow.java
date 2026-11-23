@@ -1,6 +1,9 @@
 package elements;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import itumulator.world.NonBlocking;
 import itumulator.world.World; 
@@ -13,25 +16,41 @@ kaniner. Huller bliver tilfældigt placeret når de indgår i en input fil.
 */
 
 public class Burrow implements NonBlocking {
-    private Map<Rabbit, Location> sleepingRabbits = new HashMap<>();
-    public boolean isNonBlocking() {
-        return true; 
+    private Location location; 
+    private World world; 
+    private List<Animal> sleepingAnimals; 
+    private int capacity; 
+
+    public Burrow(World world) {
+        location = world.getLocation(this); 
+        this.world = world; 
+        sleepingAnimals = new ArrayList<>();
+        
+        capacity = 3; 
     }
 
-    public void enter(Rabbit rabbit, World world) {
-        Location location = world.getLocation(rabbit);
+    public void enter(Animal rabbit) {
+        // hvis sleepingAnimals.size() > capacity, rejs exception
         world.remove(rabbit);
-        sleepingRabbits.put(rabbit, location);
+        sleepingAnimals.add(rabbit);
     }
 
-    public boolean isInside(Rabbit rabbit) {
-        return sleepingRabbits.containsKey(rabbit);
-    }
-    public void exit(Rabbit rabbit, World world) {
-        if (sleepingRabbits.containsKey(rabbit)) {
-            Location location = sleepingRabbits.get(rabbit);
-            world.setTile(location, rabbit);
-            sleepingRabbits.remove(rabbit);
+    public void exit(Animal rabbit) {
+        // nabotiles
+        world.setCurrentLocation(world.getLocation(this));
+        Set<Location> neighbors = world.getEmptySurroundingTiles(); 
+        List<Location> n = new ArrayList<>(neighbors);
+
+        if(neighbors.size() != 0) {
+            Location l = n.get(0); 
+            world.setTile(l, rabbit);
+            sleepingAnimals.remove(rabbit);
+        } else {
+            // ingen ledige pladser, find EmptySurroundingTiles for radius 2
         }
+    }
+
+    public boolean isInside(Animal rabbit) {
+        return sleepingAnimals.contains(rabbit);
     }
 }

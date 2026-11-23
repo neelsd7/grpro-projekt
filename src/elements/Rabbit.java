@@ -24,7 +24,7 @@ import itumulator.world.NonBlocking;
     et krav at kaniner når hen til deres huller.
 */
 
-public class Rabbit implements Actor, DynamicDisplayInformationProvider {
+public class Rabbit extends Animal {
     private int age; 
     private int eatTimer; 
     private Burrow burrow;
@@ -50,7 +50,7 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
             return;
         }
 
-        Energy(world);
+        energy(world);
         //Hvis kaniner står på græs, så spiser de det
         eat(world);
 
@@ -80,7 +80,7 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     }
 
     //Kaninerne spiser græs, hvis de står på en tile med det
-      private void eat(World world) {
+    protected void eat(World world) {
         Location currenLocation = world.getLocation(this);
         Object grass = world.getNonBlocking(currenLocation);
         if (isTileGrass(world)) {
@@ -123,7 +123,7 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     //Kaninernes grave-funktion
     private void dig(World world) {
         Location rabbitLocation = world.getLocation(this);
-        Burrow newBurrow = new Burrow();
+        Burrow newBurrow = new Burrow(world);
         if (!world.containsNonBlocking(rabbitLocation)) {
             burrow = newBurrow;
             world.setTile(rabbitLocation, burrow);
@@ -152,7 +152,8 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     //Kaninen lægger sig til at sove vha. Burrow-klassens enter()-funktion
     private void sleep(World world) {
         if (world.isNight() && burrow != null) {
-            burrow.enter(this, world);
+            // try catch - hvis hullets kapacitet er fuld
+            burrow.enter(this);
         }
     }
     
@@ -160,13 +161,13 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     private void wakeUp(World world) {
         if (burrow != null && burrow.isInside(this)) {
             if (world.isDay()) {
-                burrow.exit(this, world);
+                burrow.exit(this);
             }
         }
     }
 
     //Kaninernes adfærd, styret af deres age
-    private void Energy(World world) {
+    protected void energy(World world) {
         //Hvis kaniner er over 50 år, hopper de hver 8. tick
         if (age >= 50) {
             if (tick % 6 == 0) {
