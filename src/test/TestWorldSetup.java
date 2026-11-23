@@ -276,6 +276,27 @@ wolf 1 */
         int wolves_in_file = 1;  
         int wolves_counted = countWolves(map.keySet()); 
         assertEquals(wolves_in_file, wolves_counted); 
+
+        // test antal WolfDens 
+        int wolf_packs_in_file = 1;  
+        int wolf_dens_counted = countWolfDens(map.keySet()); 
+        assertEquals(wolf_packs_in_file, wolf_dens_counted); 
+
+        // test at alle ulve i flokken er på deres den's nabotile
+        Object wd = null; 
+        for(Object o : map.keySet()) {
+            if(o instanceof WolfDen) {
+                wd = o; 
+            }
+        } 
+        world.setCurrentLocation(world.getLocation(wd)); 
+        Set<Location> neighbors = world.getSurroundingTiles(); 
+
+        for(Object o : map.keySet()) {
+            if(o instanceof Wolf) {
+                assertTrue(neighbors.contains(world.getLocation(o)));
+            }
+        }
     }
 
 /*
@@ -314,6 +335,27 @@ wolf 3 */
         int wolves_in_file = 3;  
         int wolves_counted = countWolves(map.keySet()); 
         assertEquals(wolves_in_file, wolves_counted); 
+
+        // test antal WolfDens 
+        int wolf_packs_in_file = 1;  
+        int wolf_dens_counted = countWolfDens(map.keySet()); 
+        assertEquals(wolf_packs_in_file, wolf_dens_counted); 
+
+        // test at alle ulve i flokken er på deres den's nabotile
+        Object wd = null; 
+        for(Object o : map.keySet()) {
+            if(o instanceof WolfDen) {
+                wd = o; 
+            }
+        } 
+        world.setCurrentLocation(world.getLocation(wd)); 
+        Set<Location> neighbors = world.getSurroundingTiles(); 
+
+        for(Object o : map.keySet()) {
+            if(o instanceof Wolf) {
+                assertTrue(neighbors.contains(world.getLocation(o)));
+            }
+        }
     }
 
     /*
@@ -346,6 +388,7 @@ wolf 3
         assertEquals(wolves_in_file, wolves_counted); 
 
         // test wolf pack 
+
     }
 
     /*7
@@ -376,7 +419,13 @@ grass 10-15 */
 
         // test bjørn koordinater
         Location bear_location_in_file = new Location(3,5); 
-        
+        Object bear = null; 
+        for(Object o : map.keySet()) {
+            if(o instanceof Bear) {
+                bear = o; 
+            }
+        } 
+        assertTrue(bear_location_in_file.equals(map.get(bear))); 
     }
 
     public int countGrass(Set<Object> keys) {
@@ -422,11 +471,21 @@ grass 10-15 */
     public int countBears(Set<Object> keys) {
         int bear_counted = 0; 
         for(Object o : keys) {
-            if(o instanceof Wolf) {
+            if(o instanceof Bear) {
                 bear_counted ++; 
             }
         }
         return bear_counted; 
+    }
+
+    public int countWolfDens(Set<Object> keys) {
+        int dens_counted = 0; 
+        for(Object o : keys) {
+            if(o instanceof WolfDen) {
+                dens_counted ++; 
+            }
+        }
+        return dens_counted; 
     }
 
     public World createWorldFromFile(File file) {

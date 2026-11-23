@@ -58,7 +58,17 @@ public class InputReader {
             interval[0] = Integer.valueOf(data2[0]); // min
             interval[1] = Integer.valueOf(data2[1]); // max
             input = new Input(data[0], interval[0], interval[1]); 
-        } else { // lav ny alm. Input
+        
+        // lav ny koordinat Input. [0]: bear [1]: 1 [2]: (3,5)
+        } else if(data.length > 2) { 
+            String sx = data[2].substring(1,2);
+            String sy = data[2].substring(3,4);
+            int x = Integer.valueOf(sx); 
+            int y = Integer.valueOf(sy); 
+            input = new Input(data[0], x, y, true); 
+        
+        // lav ny alm. Input
+        } else { 
             amount = Integer.valueOf(data[1]); 
             input = new Input(data[0], amount); 
         }

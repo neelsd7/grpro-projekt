@@ -32,13 +32,17 @@ public class Input {
     }
 
     // eksempel: Bear 1 (3,5)
-    public Input(String type, int amount, int x, int y) {
+    public Input(String type, int x, int y, boolean hasCoordinates) {
         this.type = type.toLowerCase(); 
-        this.amount = amount; 
-        
+        amount = 1; 
+
+        if(hasCoordinates = false) {
+            throw new IllegalArgumentException("Forkert brug af denne Input konstruktør."); 
+        }
+        coordinates = new int[2]; 
         coordinates[0] = x; 
         coordinates[1] = y; 
-        hasCoordinates = true; 
+        this.hasCoordinates = true; 
 
         typeIsWolf(); 
     }
@@ -65,14 +69,23 @@ public class Input {
                 return new Bear(); 
             case "berry": 
                 return new BerryBush(); 
-            case "wolfden": 
-                return new WolfDen(); 
             default: 
                 return null; 
         }
     }
 
     // Getter metoder: 
+    public boolean randomPlacement() {
+        switch(type) {
+            case "wolf": 
+                return false; 
+            case "bear": 
+                return false;  
+            default: 
+                return true; 
+        }
+    }
+
     public int getAmount() {
         return amount; 
     }
