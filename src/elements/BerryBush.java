@@ -10,7 +10,6 @@ import itumulator.world.Growable;
 
 import java.awt.Color;
 
-
 public class BerryBush implements Growable, Actor, DynamicDisplayInformationProvider {
     int tick;
     int RegrowTimer;
@@ -45,5 +44,4 @@ public class BerryBush implements Growable, Actor, DynamicDisplayInformationProv
             return DI;
         }
     }
-
 }

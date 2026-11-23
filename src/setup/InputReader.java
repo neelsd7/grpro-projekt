@@ -61,8 +61,9 @@ public class InputReader {
         
         // lav ny koordinat Input. [0]: bear [1]: 1 [2]: (3,5)
         } else if(data.length > 2) { 
-            String sx = data[2].substring(1,2);
-            String sy = data[2].substring(3,4);
+            String[] data2 = data[2].split(","); 
+            String sx = data2[0].replace("(", "");
+            String sy = data2[1].replace(")", "");
             int x = Integer.valueOf(sx); 
             int y = Integer.valueOf(sy); 
             input = new Input(data[0], x, y, true); 
