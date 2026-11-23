@@ -188,7 +188,7 @@ public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     //Information til DynamicDisplayInformationProvider
     public DisplayInformation getInformation() {
         DisplayInformation DI;
-        if (age < 40) {
+        if (age < 73) {
             return DI = new DisplayInformation(Color.white, "rabbit-small", false);
         } else {
             return DI = new DisplayInformation(Color.white, "rabbit-large", false);

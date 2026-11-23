@@ -20,6 +20,7 @@ private Map<Rabbit, Location> sleepingRabbits = new HashMap<>();
 
 public void enter(Rabbit rabbit, World world) {
         Location location = world.getLocation(rabbit);
+        world.move(rabbit, location);
         world.remove(rabbit);
         sleepingRabbits.put(rabbit, location);
     }
