@@ -12,6 +12,15 @@ import itumulator.world.Location;
 import itumulator.world.NonBlocking;
 import itumulator.world.World;
 
+/*
+    ElementPlacer skal nok tage prioritere visse elementer: 
+        1. elementer med bestemte koordinater
+        2. pladskrævende elementer (ulve, da de skal have en den)
+        3. sæt til sidst de tilfældige elementer
+
+    brug public boolean randomPlacement() fra Input
+*/
+
 public class ElementPlacer {
     private World world; 
     private int size; 
@@ -74,7 +83,7 @@ public class ElementPlacer {
 
         // der skal være nok tomme pladser rundt om hulen til alle ulve
         world.setCurrentLocation(l);
-        while(amount > world.getEmptySurroundingTiles().size()) {
+        while(amount > world.getEmptySurroundingTiles().size() || !(world.isTileEmpty(l))) {
             l = new Location(r.nextInt(size), r.nextInt(size)); 
             world.setCurrentLocation(l);
         }
