@@ -1,5 +1,5 @@
 package elements;
 
-public class WolfDen {
+public class WolfDen extends Den {
 
 }
