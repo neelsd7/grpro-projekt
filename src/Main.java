@@ -71,7 +71,7 @@ public class Main {
         //Dynamiske displays 
         DisplayInformation rabbit = new Rabbit().getInformation();
         DisplayInformation bear = new Bear().getInformation();
-        //DisplayInformation berries = new BerryBush().getInformation(world);
+        DisplayInformation berries = new BerryBush().getInformation();
         DisplayInformation wolf = new Wolf().getInformation();
         
         p.setDisplayInformation(Burrow.class, burrow);
