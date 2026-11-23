@@ -22,7 +22,6 @@ public class Burrow implements NonBlocking {
     private int capacity; 
 
     public Burrow(World world) {
-        location = world.getLocation(this); 
         this.world = world; 
         sleepingAnimals = new ArrayList<>();
         
