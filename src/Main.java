@@ -1,4 +1,11 @@
 import elements.*;
+import elements.animals.Bear;
+import elements.animals.Rabbit;
+import elements.animals.Wolf;
+import elements.habitats.Burrow;
+import elements.habitats.WolfDen;
+import elements.vegetation.BerryBush;
+import elements.vegetation.Grass;
 import setup.*; 
 import itumulator.executable.DisplayInformation;
 import itumulator.executable.Program;

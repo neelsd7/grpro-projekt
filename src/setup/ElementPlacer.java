@@ -1,7 +1,7 @@
 package setup;
 
-import elements.WolfDen; 
-import elements.Wolf;
+import elements.animals.Wolf;
+import elements.habitats.WolfDen;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

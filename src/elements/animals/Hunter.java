@@ -1,4 +1,4 @@
-package elements; 
+package elements.animals; 
 
 import itumulator.simulator.Actor;
 

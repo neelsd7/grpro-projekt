@@ -1,4 +1,4 @@
-package elements;
+package elements.vegetation;
 
 import itumulator.world.World;
 import itumulator.executable.DisplayInformation;
@@ -9,6 +9,9 @@ import itumulator.world.Location;
 import itumulator.world.Growable;
 
 import java.awt.Color;
+
+import elements.animals.Bear;
+import elements.animals.Wolf;
 
 public class BerryBush implements Growable, Actor, DynamicDisplayInformationProvider {
     int tick;

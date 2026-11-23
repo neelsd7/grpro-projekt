@@ -1,6 +1,13 @@
 package setup;
 
-import elements.*; 
+import elements.*;
+import elements.animals.Bear;
+import elements.animals.Rabbit;
+import elements.animals.Wolf;
+import elements.habitats.Burrow;
+import elements.vegetation.BerryBush;
+import elements.vegetation.Grass;
+
 import java.util.Random; 
 
 /* Repræsenterer en linje i en input fil (alle andre linjer end size linjen) */

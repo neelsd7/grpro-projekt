@@ -1,10 +1,11 @@
-package elements;
+package elements.habitats;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import elements.animals.Animal;
 import itumulator.world.NonBlocking;
 import itumulator.world.World; 
 import itumulator.world.Location; 

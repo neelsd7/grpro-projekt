@@ -1,9 +1,13 @@
-package elements;
+package elements.animals;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import elements.habitats.Burrow;
+import elements.vegetation.Grass;
+
 import java.util.Random;
 
 import itumulator.executable.DisplayInformation;

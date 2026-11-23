@@ -16,7 +16,13 @@ import setup.InputReader;
 import setup.ElementPlacer;
 import setup.Input; 
 
-import elements.*; 
+import elements.*;
+import elements.animals.Bear;
+import elements.animals.Rabbit;
+import elements.animals.Wolf;
+import elements.habitats.Burrow;
+import elements.habitats.WolfDen;
+import elements.vegetation.Grass; 
 
 /*
     tester om verden bliver oprettet korrekt ved at tjekke: 

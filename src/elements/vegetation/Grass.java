@@ -1,4 +1,4 @@
-package elements;
+package elements.vegetation;
 
 import itumulator.world.Growable;
 import itumulator.world.Location;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import elements.animals.Rabbit;
 import itumulator.simulator.Actor; 
 
 public class Grass implements Growable, Actor {

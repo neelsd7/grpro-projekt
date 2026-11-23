@@ -1,6 +1,9 @@
-package elements;
+package elements.habitats;
 
 import java.util.Set;
+
+import elements.animals.Wolf;
+
 import java.util.List;
 
 import itumulator.world.World;

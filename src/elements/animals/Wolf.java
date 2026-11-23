@@ -1,4 +1,4 @@
-package elements;
+package elements.animals;
  
 import java.awt.Color;
 import java.util.ArrayList;
