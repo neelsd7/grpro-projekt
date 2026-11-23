@@ -77,7 +77,7 @@ public class ElementPlacer {
         }
 
         // 1. placer WolfDen -- tilfældigt men med en betingelse
-        WolfDen wd = new WolfDen(); // skal være WolfDen(pack)
+        WolfDen wd = new WolfDen(pack); // skal være WolfDen(pack)
         r = new Random(); 
         Location l = new Location(r.nextInt(size), r.nextInt(size)); 
 
