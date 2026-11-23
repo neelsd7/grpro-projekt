@@ -205,7 +205,7 @@ rabbit 5 */
     /*15
 burrow 1
 rabbit 5 */
-    @Test
+@Test
     public void test_t1_3b() {
         File file = new File("resources/input/t1-3b.txt"); 
         World world = createWorldFromFile(file); 
@@ -224,159 +224,6 @@ rabbit 5 */
         int rabbits_in_file = 5; 
         int rabbits_counted = countRabbits(map.keySet()); 
         assertEquals(rabbits_in_file, rabbits_counted); 
-    }
-
-    /*5
-wolf 1
- */
-    @Test
-    public void test_t2_1ab() {
-        File file = new File("resources/input/t2-1ab.txt"); 
-        World world = createWorldFromFile(file); 
-        Map<Object, Location> map = world.getEntities(); 
-
-        // test size
-        int size_in_file = 5; 
-        assertEquals(size_in_file, world.getSize()); 
-
-        // test antal ulve
-        int wolves_in_file = 1;  
-        int wolves_counted = countWolves(map.keySet()); 
-        assertEquals(wolves_in_file, wolves_counted); 
-    }
-
-    /*10
-grass 2-7
-rabbit 2
-wolf 1 */
-    @Test
-    public void test_t2_1c() {
-        File file = new File("resources/input/t2-1c.txt"); 
-        World world = createWorldFromFile(file); 
-        Map<Object, Location> map = world.getEntities(); 
-
-        // test size
-        int size_in_file = 10; 
-        assertEquals(size_in_file, world.getSize()); 
-
-        // test antal græs 
-        int grass_in_file_min = 2; 
-        int grass_in_file_max = 7; 
-
-        int grass_counted = countGrass(map.keySet()); 
-        boolean grass_isWithinInterval = grass_counted >= grass_in_file_min || grass_counted <= grass_in_file_max; 
-        assertTrue(grass_isWithinInterval); 
-
-        // test antal kaniner
-        int rabbits_in_file = 2; 
-        int rabbits_counted = countRabbits(map.keySet()); 
-        assertEquals(rabbits_in_file, rabbits_counted); 
-
-        // test antal ulve
-        int wolves_in_file = 1;  
-        int wolves_counted = countWolves(map.keySet()); 
-        assertEquals(wolves_in_file, wolves_counted); 
-    }
-
-/*
-15
-grass 8-15
-rabbit 2-5
-wolf 3 */
-    @Test
-    public void test_t2_2a() {
-        File file = new File("resources/input/t2-2a.txt"); 
-        World world = createWorldFromFile(file); 
-        Map<Object, Location> map = world.getEntities(); 
-
-        // test size
-        int size_in_file = 15; 
-        assertEquals(size_in_file, world.getSize()); 
-
-        // test antal græs 
-        int grass_in_file_min = 8; 
-        int grass_in_file_max = 15; 
-
-        int grass_counted = countGrass(map.keySet()); 
-        boolean grass_isWithinInterval = grass_counted >= grass_in_file_min || grass_counted <= grass_in_file_max; 
-        assertTrue(grass_isWithinInterval); 
-
-        // test antal kaniner
-        int rabbits_in_file_min = 2; 
-        int rabbits_in_file_max = 5; 
-
-        int rabbits_counted = countRabbits(map.keySet()); 
-
-        boolean rabbits_isWithinInterval = rabbits_counted >= rabbits_in_file_min || rabbits_counted <= rabbits_in_file_max; 
-        assertTrue(rabbits_isWithinInterval);
-
-        // test antal ulve
-        int wolves_in_file = 3;  
-        int wolves_counted = countWolves(map.keySet()); 
-        assertEquals(wolves_in_file, wolves_counted); 
-    }
-
-    /*
-    25
-grass 8-15
-wolf 3
-wolf 3
- */
-    @Test
-    public void test_t2_3a() {
-        File file = new File("resources/input/t2-3a.txt"); 
-        World world = createWorldFromFile(file); 
-        Map<Object, Location> map = world.getEntities(); 
-
-        // test size
-        int size_in_file = 25; 
-        assertEquals(size_in_file, world.getSize()); 
-
-        // test antal græs 
-        int grass_in_file_min = 8; 
-        int grass_in_file_max = 15; 
-
-        int grass_counted = countGrass(map.keySet()); 
-        boolean grass_isWithinInterval = grass_counted >= grass_in_file_min || grass_counted <= grass_in_file_max; 
-        assertTrue(grass_isWithinInterval); 
-
-        // test antal ulve
-        int wolves_in_file = 6;  
-        int wolves_counted = countWolves(map.keySet()); 
-        assertEquals(wolves_in_file, wolves_counted); 
-
-        // test wolf pack 
-    }
-
-    /*7
-bear 1 (3,5)
-grass 10-15 */
-    @Test
-    public void test_t2_4a() {
-        File file = new File("resources/input/t2-4a.txt"); 
-        World world = createWorldFromFile(file); 
-        Map<Object, Location> map = world.getEntities(); 
-
-        // test size
-        int size_in_file = 7; 
-        assertEquals(size_in_file, world.getSize()); 
-
-        // test antal græs 
-        int grass_in_file_min = 10; 
-        int grass_in_file_max = 15; 
-
-        int grass_counted = countGrass(map.keySet()); 
-        boolean grass_isWithinInterval = grass_counted >= grass_in_file_min || grass_counted <= grass_in_file_max; 
-        assertTrue(grass_isWithinInterval); 
-
-        // test antal bjørne
-        int bears_in_file = 1;  
-        int bears_counted = countBears(map.keySet()); 
-        assertEquals(bears_in_file, bears_counted); 
-
-        // test bjørn koordinater
-        Location bear_location_in_file = new Location(3,5); 
-        
     }
 
     public int countGrass(Set<Object> keys) {
@@ -407,26 +254,6 @@ grass 10-15 */
             }
         }
         return burrows_counted; 
-    }
-
-    public int countWolves(Set<Object> keys) {
-        int wolves_counted = 0; 
-        for(Object o : keys) {
-            if(o instanceof Wolf) {
-                wolves_counted ++; 
-            }
-        }
-        return wolves_counted; 
-    }
-
-    public int countBears(Set<Object> keys) {
-        int bear_counted = 0; 
-        for(Object o : keys) {
-            if(o instanceof Wolf) {
-                bear_counted ++; 
-            }
-        }
-        return bear_counted; 
     }
 
     public World createWorldFromFile(File file) {

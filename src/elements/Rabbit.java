@@ -24,7 +24,7 @@ import itumulator.world.NonBlocking;
     et krav at kaniner når hen til deres huller.
 */
 
-public class Rabbit extends Animal {
+public class Rabbit implements Actor, DynamicDisplayInformationProvider {
     private int age; 
     private int eatTimer; 
     private Burrow burrow;
@@ -50,7 +50,7 @@ public class Rabbit extends Animal {
             return;
         }
 
-        energy(world);
+        Energy(world);
         //Hvis kaniner står på græs, så spiser de det
         eat(world);
 
@@ -80,7 +80,7 @@ public class Rabbit extends Animal {
     }
 
     //Kaninerne spiser græs, hvis de står på en tile med det
-    protected void eat(World world) {
+      private void eat(World world) {
         Location currenLocation = world.getLocation(this);
         Object grass = world.getNonBlocking(currenLocation);
         if (isTileGrass(world)) {
@@ -123,7 +123,7 @@ public class Rabbit extends Animal {
     //Kaninernes grave-funktion
     private void dig(World world) {
         Location rabbitLocation = world.getLocation(this);
-        Burrow newBurrow = new Burrow(world);
+        Burrow newBurrow = new Burrow();
         if (!world.containsNonBlocking(rabbitLocation)) {
             burrow = newBurrow;
             world.setTile(rabbitLocation, burrow);
@@ -152,8 +152,7 @@ public class Rabbit extends Animal {
     //Kaninen lægger sig til at sove vha. Burrow-klassens enter()-funktion
     private void sleep(World world) {
         if (world.isNight() && burrow != null) {
-            // try catch - hvis hullets kapacitet er fuld
-            burrow.enter(this);
+            burrow.enter(this, world);
         }
     }
     
@@ -161,13 +160,13 @@ public class Rabbit extends Animal {
     private void wakeUp(World world) {
         if (burrow != null && burrow.isInside(this)) {
             if (world.isDay()) {
-                burrow.exit(this);
+                burrow.exit(this, world);
             }
         }
     }
 
     //Kaninernes adfærd, styret af deres age
-    protected void energy(World world) {
+    private void Energy(World world) {
         //Hvis kaniner er over 50 år, hopper de hver 8. tick
         if (age >= 50) {
             if (tick % 6 == 0) {

@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/*
-    læser fra fil:  
-        - og laver en liste af Input
-        - læser size (verdens størrelse)
-*/
-
 public class InputReader {
     private int size;
     private List<Input> input; 
@@ -32,7 +26,7 @@ public class InputReader {
         input = new ArrayList<>(); 
         for(String line : fileInput) {
             if(!line.equals("") && line.contains(" ")){ // forhindrer eventuelle fejl fra Scanner.nextLine()
-                input.add(stringToInput(line));  
+                input.add(stringToInput(line)); 
             }
         }
     }

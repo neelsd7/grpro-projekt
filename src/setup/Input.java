@@ -9,7 +9,6 @@ public class Input {
     private int amount; 
     private boolean hasCoordinates; 
     private int[] coordinates;  
-    private boolean isWolf; 
 
     // eksempel: grass 10
     public Input(String type, int amount) {
@@ -17,7 +16,6 @@ public class Input {
         this.amount = amount; 
 
         hasCoordinates = false; 
-        typeIsWolf(); 
     }
 
     // eksempel: grass 10-15
@@ -28,7 +26,6 @@ public class Input {
         amount =  min + r.nextInt(max - min); 
 
         hasCoordinates = false; 
-        typeIsWolf(); 
     }
 
     // eksempel: Bear 1 (3,5)
@@ -39,16 +36,6 @@ public class Input {
         coordinates[0] = x; 
         coordinates[1] = y; 
         hasCoordinates = true; 
-
-        typeIsWolf(); 
-    }
-
-    private void typeIsWolf()  {
-        if(type.equals("wolf")) {
-            isWolf = true; 
-        } else {
-            isWolf = false; 
-        }
     }
 
     public Object createObject() {
@@ -65,8 +52,6 @@ public class Input {
                 return new Bear(); 
             case "berry": 
                 return new BerryBush(); 
-            case "wolfden": 
-                return new WolfDen(); 
             default: 
                 return null; 
         }
@@ -87,10 +72,6 @@ public class Input {
 
     public int[] getCoordinates() {
         return coordinates; 
-    }
-
-    public boolean isWolf() {
-        return isWolf; 
     }
 
     // til fejlfinding
