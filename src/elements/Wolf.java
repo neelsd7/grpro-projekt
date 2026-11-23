@@ -21,7 +21,7 @@ K2-3a. Ulve og deres flok, tilhører en ulvehule, det er også her de formerer s
 hinanden*/
  
  
-public class Wolf extends Hunter {
+public class Wolf extends Animal {
     private int startEnergy = 60;
     private int maxAge = 400;
  
@@ -45,9 +45,8 @@ public class Wolf extends Hunter {
         }
  
         // K2-1c: står der en kanin ved siden af, spiser ulven den. Ellers går den videre
-        if (!eatAnimals(world)) {
+        if (!eatRabbit(world)) {
             hunt(world);
-            energy = energy + 40;
         }
     }
  
@@ -57,7 +56,7 @@ public class Wolf extends Hunter {
     }
  
     // K2-1c: spiser en kanin på et nabofelt og får energi. Returnerer true hvis ulven spiste
-    /*private boolean eatRabbit(World world) {
+    private boolean eatRabbit(World world) {
         Location here = world.getLocation(this);
         for (Location l : world.getSurroundingTiles(here)) {
             if (world.getTile(l) instanceof Rabbit) {
@@ -67,10 +66,10 @@ public class Wolf extends Hunter {
             }
         }
         return false;
-    }*/
+    }
  
     // K2-1c: går et skridt mod en kanin den kan se (3 felter væk), ellers et tilfældigt sted hen
-    /*private void hunt(World world) {
+    private void hunt(World world) {
         Location here = world.getLocation(this);
  
         for (Location l : world.getSurroundingTiles(here, 3)) {
@@ -92,15 +91,10 @@ public class Wolf extends Hunter {
             Random r = new Random();
             world.move(this, empty.get(r.nextInt(empty.size())));
         }
-    }*/
+    }
  
-    @Override 
+    @Override
     public DisplayInformation getInformation() {
-        DisplayInformation DI;
-        if (age < 146) {
-            return DI = new DisplayInformation(Color.white, "wolf-small", false);
-        } else {
-            return DI = new DisplayInformation(Color.white, "wolf", false);
-        }
+        return new DisplayInformation(Color.gray, "wolf", false);
     }
 }

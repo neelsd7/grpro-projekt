@@ -13,7 +13,7 @@ K2-5a. Bjørnen er meget territoriel, og har som udgangspunkt ikke et bestemt st
 Dette territories centrum bestemmes ud fra bjørnens startplacering på kortet.
 */
  
-public class Bear extends Hunter  {
+public class Bear extends Animal  {
     private int startEnergy = 40;
     private int maxAge = 400;
  
@@ -28,8 +28,6 @@ public class Bear extends Hunter  {
     public void act(World world) {
         age++;
         energy--;
-
-        hunt(world);
  
      if (energy <= 0 || age >= maxAge) {
             die(world);
@@ -40,13 +38,8 @@ public class Bear extends Hunter  {
         world.delete(this);
     }
     // K2-4a: hvordan bjørnen vises på kortet
-    @Override 
+    @Override
     public DisplayInformation getInformation() {
-        DisplayInformation DI;
-        if (age < 292) {
-            return DI = new DisplayInformation(Color.white, "bear-small", false);
-        } else {
-            return DI = new DisplayInformation(Color.white, "bear", false);
-        }
+        return new DisplayInformation(Color.darkGray, "bear", false);
     }
 }

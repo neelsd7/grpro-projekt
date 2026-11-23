@@ -1,6 +1,5 @@
 package elements;
 
-import itumulator.world.Growable;
 import itumulator.world.Location;
 import itumulator.world.NonBlocking;
 import itumulator.world.World;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 import itumulator.simulator.Actor; 
 
-public class Grass implements Growable, Actor {
+public class Grass implements NonBlocking, Actor {
     Random r; 
     int spreadSpeed; 
     Rabbit rabbit;
