@@ -29,7 +29,6 @@ public class Burrow implements NonBlocking {
         capacity = 3; 
     }
 
-<<<<<<< HEAD
     public Burrow() {
         // input opretter burrows uden at de får en world 
         // bliver et problem hvis et dyr prøver at enter et hul som ikke er lavet af et dyr
@@ -39,10 +38,6 @@ public class Burrow implements NonBlocking {
 
     public void enter(Animal rabbit) {
         // hvis sleepingAnimals.size() > capacity, rejs exception som skal håndteres i rabbit
-=======
-public void enter(Rabbit rabbit, World world) {
-        Location location = world.getLocation(rabbit);
->>>>>>> parent of 173f5ae (Growable interface, Hunter superklasse & BerryBush)
         world.remove(rabbit);
         sleepingAnimals.add(rabbit);
     }

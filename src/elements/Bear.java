@@ -40,6 +40,11 @@ public class Bear extends Animal  {
     // K2-4a: hvordan bjørnen vises på kortet
     @Override
     public DisplayInformation getInformation() {
-        return new DisplayInformation(Color.darkGray, "bear", false);
+            DisplayInformation DI;
+        if (age < 292) {
+            return DI = new DisplayInformation(Color.white, "bear-small", false);
+        } else {
+            return DI = new DisplayInformation(Color.white, "bear", false);
+        }
     }
 }

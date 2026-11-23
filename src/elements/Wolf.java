@@ -21,7 +21,7 @@ K2-3a. Ulve og deres flok, tilhører en ulvehule, det er også her de formerer s
 hinanden*/
  
  
-public class Wolf extends Animal {
+public class Wolf extends Hunter {
     private int startEnergy = 60;
     private int maxAge = 400;
  
@@ -45,8 +45,9 @@ public class Wolf extends Animal {
         }
  
         // K2-1c: står der en kanin ved siden af, spiser ulven den. Ellers går den videre
-        if (!eatRabbit(world)) {
+        if (!eatAnimals(world)) {
             hunt(world);
+            energy = energy + 40;
         }
     }
  
@@ -55,46 +56,15 @@ public class Wolf extends Animal {
         world.delete(this);
     }
  
-    // K2-1c: spiser en kanin på et nabofelt og får energi. Returnerer true hvis ulven spiste
-    private boolean eatRabbit(World world) {
-        Location here = world.getLocation(this);
-        for (Location l : world.getSurroundingTiles(here)) {
-            if (world.getTile(l) instanceof Rabbit) {
-                world.delete(world.getTile(l));
-                energy = energy + 40;
-                return true;
-            }
-        }
-        return false;
-    }
- 
     // K2-1c: går et skridt mod en kanin den kan se (3 felter væk), ellers et tilfældigt sted hen
-    private void hunt(World world) {
-        Location here = world.getLocation(this);
- 
-        for (Location l : world.getSurroundingTiles(here, 3)) {
-            if (world.getTile(l) instanceof Rabbit) {
-                // et skridt mod kaninen: -1, 0 eller 1 i både x og y
-                int x = Integer.compare(l.getX(), here.getX());
-                int y = Integer.compare(l.getY(), here.getY());
-                Location next = new Location(here.getX() + x, here.getY() + y);
- 
-                if (world.isTileEmpty(next)) {
-                    world.move(this, next);
-                    return;
-                }
-            }
-        }
-        // ingen kanin i nærheden, gå et tilfældigt sted hen
-        List<Location> empty = new ArrayList<>(world.getEmptySurroundingTiles(here));
-        if (!empty.isEmpty()) {
-            Random r = new Random();
-            world.move(this, empty.get(r.nextInt(empty.size())));
-        }
-    }
  
     @Override
     public DisplayInformation getInformation() {
-        return new DisplayInformation(Color.gray, "wolf", false);
+            DisplayInformation DI;
+        if (age < 146) {
+            return DI = new DisplayInformation(Color.white, "wolf-small", false);
+        } else {
+            return DI = new DisplayInformation(Color.white, "wolf", false);
+        }
     }
 }
