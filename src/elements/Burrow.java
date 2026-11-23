@@ -29,8 +29,15 @@ public class Burrow implements NonBlocking {
         capacity = 3; 
     }
 
+    public Burrow() {
+        // input opretter burrows uden at de får en world 
+        // bliver et problem hvis et dyr prøver at enter et hul som ikke er lavet af et dyr
+        sleepingAnimals = new ArrayList<>();
+        capacity = 3; 
+    }
+
     public void enter(Animal rabbit) {
-        // hvis sleepingAnimals.size() > capacity, rejs exception
+        // hvis sleepingAnimals.size() > capacity, rejs exception som skal håndteres i rabbit
         world.remove(rabbit);
         sleepingAnimals.add(rabbit);
     }
