@@ -33,7 +33,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("resources/input/t1-2fg.txt");
+        File file = new File("resources/input/t2-1c.txt");
         List<Input> input; 
         InputReader ir; 
         try {
@@ -70,14 +70,14 @@ public class Main {
         //Dynamiske displays 
         DisplayInformation rabbit = new Rabbit().getInformation();
         DisplayInformation bear = new Bear().getInformation();
-        //DisplayInformation berries = new BerryBush().getInformation(world);
+        DisplayInformation berries = new BerryBush().getInformation();
         DisplayInformation wolf = new Wolf().getInformation();
         
         p.setDisplayInformation(Burrow.class, burrow);
         p.setDisplayInformation(Grass.class, grass);
         p.setDisplayInformation(Rabbit.class, rabbit);
-        //p.setDisplayInformation(Bear.class, bear);
-       // p.setDisplayInformation(BerryBush.class, berries);
-        //p.setDisplayInformation(Wolf.class, wolf);
+        p.setDisplayInformation(Bear.class, bear);
+        p.setDisplayInformation(BerryBush.class, berries);
+        p.setDisplayInformation(Wolf.class, wolf);
     }
 }
