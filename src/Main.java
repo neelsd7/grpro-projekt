@@ -33,7 +33,7 @@ public class Main {
         int delay = 1000; 
 
         // henter info fra input-fil gennem InputReader objekt
-        File file = new File("resources/input/t2-4a.txt");
+        File file = new File("resources/input/t2-2a.txt");
         List<Input> input; 
         InputReader ir; 
         try {
