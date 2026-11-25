@@ -16,6 +16,7 @@ import elements.animals.Wolf;
 public class BerryBush implements Growable, Actor, DynamicDisplayInformationProvider {
     int tick;
     int RegrowTimer;
+    boolean isEaten;
 
     public void act(World world) {
         tick++;
@@ -27,14 +28,14 @@ public class BerryBush implements Growable, Actor, DynamicDisplayInformationProv
         
     }
 
-    private boolean isEaten(World world) {
+    private void isEaten(World world) {
         Location currentLocation = world.getLocation(this);
         if (RegrowTimer >= 40)
             if (world.getTile(currentLocation) instanceof Bear || world.getTile(currentLocation) instanceof Wolf) {
                 RegrowTimer = 0;
-            return true;
+            isEaten = true;
         }
-            return false;
+            isEaten = false;
     }
 
     public DisplayInformation getInformation() {
