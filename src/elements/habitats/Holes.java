@@ -53,7 +53,16 @@ public abstract class Holes implements NonBlocking {
             world.setTile(l, animal);
             sleepingAnimals.remove(animal);
         } else {
-            // ingen ledige pladser, find EmptySurroundingTiles for radius 2
+            // ingen ledige nabotiles: kig på alle felter op til 2 felter væk
+            Set<Location> radius2 = world.getSurroundingTiles(2);
+            for (Location l : radius2) {
+                if (world.isTileEmpty(l)) {
+                    world.setTile(l, animal);
+                    sleepingAnimals.remove(animal);
+                    return;
+                }
+            }
+            // stadig ingen plads: dyret bliver i hullet og prøver igen næste tick
         }
     }
 
