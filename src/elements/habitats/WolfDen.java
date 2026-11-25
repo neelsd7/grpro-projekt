@@ -17,6 +17,7 @@ public class WolfDen extends Holes{
 // måske en liste til at holde styr på hulerne?
 
     public WolfDen(List<Wolf> wolves) {
+        super(); // opretter sleepingAnimals osv. i Holes (enter, exit og isInside arves derfra)
         this.wolves = wolves;
     
     }
