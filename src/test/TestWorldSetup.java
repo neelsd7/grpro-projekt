@@ -16,13 +16,13 @@ import setup.InputReader;
 import setup.ElementPlacer;
 import setup.Input; 
 
-import elements.*;
 import elements.animals.Bear;
 import elements.animals.Rabbit;
 import elements.animals.Wolf;
 import elements.habitats.Burrow;
 import elements.habitats.WolfDen;
 import elements.vegetation.Grass; 
+import elements.vegetation.BerryBush; 
 
 /*
     tester om verden bliver oprettet korrekt ved at tjekke: 
@@ -31,7 +31,145 @@ import elements.vegetation.Grass;
 */
 
 public class TestWorldSetup {
+    /* laver to test fil kun med direkte amounts for alle typer elementer:
+        20
+        grass 5
+        berry 2
+        rabbit 4
+        bear 1 (2,7)
+        wolf 3
+        wolf 2
+        burrow 3
+    */
+    @Test
+    public void test_basic_amounts() {
+        File file = new File("src/test/test-setup-static-amounts.txt"); 
+        World world = createWorldFromFile(file); 
+        Map<Object, Location> map = world.getEntities(); 
 
+        // test size
+        assertEquals(20, world.getSize()); 
+
+        // test antal græs 
+        assertEquals(5, countGrass(map.keySet())); 
+
+        // test antal bærbuske
+        assertEquals(2, countBushes(map.keySet())); 
+
+        // test antal kaniner
+        assertEquals(4, countRabbits(map.keySet())); 
+
+        // test antal bjørne
+        assertEquals(1, countBears(map.keySet())); 
+
+        // test antal ulve
+        assertEquals(5, countWolves(map.keySet())); 
+
+        // test antal ulvehuler
+        assertEquals(2, countWolfDens(map.keySet())); 
+
+        // test antal kaninhuller
+        assertEquals(3, countBurrows(map.keySet()));    
+    }
+
+    /*
+    laver en test fil kun med intervaller for alle typer elementer 
+    - kører den flere gange (anvend speciel test annotation) 
+
+    25
+    grass 3-6
+    berry 2-4
+    rabbit 1-3
+    bear 1-2
+    wolf 0-2
+    wolf 1-4
+    burrow 1-4 
+    */
+
+    @RepeatedTest(10)
+    public void test_intervals() {
+        File file = new File("src/test/test-setup-intervals.txt"); 
+        World world = createWorldFromFile(file); 
+        Map<Object, Location> map = world.getEntities(); 
+
+        // test size
+        assertEquals(25, world.getSize()); 
+
+        // test antal græs 
+        int grass_counted = countGrass(map.keySet()); 
+        assertTrue(grass_counted >= 3 || grass_counted <= 6); 
+
+        // test antal bærbuske 
+        int bushes_counted = countBushes(map.keySet()); 
+        assertTrue(bushes_counted >= 2 || bushes_counted <= 4); 
+
+        // test antal kaniner
+        int rabbits_counted = countRabbits(map.keySet()); 
+        assertTrue(rabbits_counted >= 1 || rabbits_counted <= 3); 
+
+        // test antal bjørne
+        int bears_counted = countBears(map.keySet()); 
+        assertTrue(bears_counted >= 1 || bears_counted <= 2); 
+
+        // test antal ulve
+        int wolves_counted = countWolves(map.keySet()); 
+        assertTrue(wolves_counted >= 1 || wolves_counted <= 6); 
+
+        // test antal ulvehuler
+        int wolfdens_counted = countWolfDens(map.keySet()); 
+        assertTrue(wolfdens_counted >= 1 || wolfdens_counted <= 2); 
+
+        // test antal kaninhuller
+        int burrows_counted = countBurrows(map.keySet()); 
+        assertTrue(burrows_counted >= 1 || burrows_counted <= 4); 
+    }
+
+
+    /* laver en test fil med forskellige ulveflokke  
+    10
+    wolf 3
+    wolf 4
+    */
+    @RepeatedTest(10)
+    public void test_wolves() {
+        File file = new File("src/test/test-setup-wolfpacks.txt"); 
+        World world = createWorldFromFile(file); 
+        Map<Object, Location> map = world.getEntities(); 
+
+        // test size 
+        assertEquals(10, world.getSize());
+        
+        // test antal ulve
+        assertEquals(7, countWolves(map.keySet())); 
+
+        // test antal ulvehuler
+        assertEquals(2, countWolfDens(map.keySet())); 
+
+        // test at alle ulve i flokken er på deres den's nabotile
+        Object wd = null; 
+        for(Object o : map.keySet()) { // henter alle wolfdens
+            if(o instanceof WolfDen) {
+                wd = o; 
+            }
+        } 
+        world.setCurrentLocation(world.getLocation(wd)); 
+        Set<Location> neighbors = world.getSurroundingTiles(); 
+
+        for(Object o : map.keySet()) {
+            if(o instanceof Wolf) {
+                assertTrue(neighbors.contains(world.getLocation(o)));
+            }
+        }
+    }
+
+
+    /* laver en test fil med forskellige bjørne med koordinater  
+    10
+    bear 1 (3,4)
+    bear 1 (6,8)
+    */ 
+
+    
     @Test
     public void test_t1_1a() {
         File file = new File("resources/input/t1-1a.txt"); 
@@ -462,6 +600,16 @@ grass 10-15 */
             }
         }
         return burrows_counted; 
+    }
+
+    public int countBushes(Set<Object> keys) {
+        int bushes_counted = 0; 
+        for(Object o : keys) {
+            if(o instanceof BerryBush) {
+                bushes_counted ++; 
+            }
+        }
+        return bushes_counted; 
     }
 
     public int countWolves(Set<Object> keys) {

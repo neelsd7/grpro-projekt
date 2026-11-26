@@ -59,7 +59,7 @@ public class ElementPlacer {
         }
     }
 
-    // placerer et enkelt element på en bestemt plads 
+    // placerer et enkelt element på en bestemt plads (bjørn)
     private void placeAtCoordinates(Input element) {
         Object object = element.createObject(); 
         Location l = new Location(element.getCoordinates()[0], element.getCoordinates()[1]);
