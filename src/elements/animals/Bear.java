@@ -1,7 +1,10 @@
 package elements.animals;
  
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.Random;
 
 import elements.habitats.Burrow;
 import elements.vegetation.BerryBush;
@@ -19,11 +22,13 @@ Dette territories centrum bestemmes ud fra bjørnens startplacering på kortet.
 */
  
 public class Bear extends Hunter  {
-    private int startEnergy = 40;
+    private int startEnergy = 60;
     private int maxAge = 400;
  
     private int age;
     private int energy;
+    private int tick;
+    private Location Loc;
  
     public Bear() {
         age = 0;
@@ -33,14 +38,23 @@ public class Bear extends Hunter  {
     public void act(World world) {
         age++;
         energy--;
- 
-     if (energy <= 0 || age >= maxAge) {
-            die(world);
-     }
+        tick++;
 
-    if (!eatAnimals(world)) {
-        hunt(world);
-        energy = energy + 40;
+        eat(world);
+        System.out.println(energy);
+        if (energy <= 0 || age >= maxAge) {
+            die(world);
+        }
+
+        while (tick == 1) {
+            Loc = world.getLocation(this);
+            break;
+        }
+
+        if (!eatAnimals(world)) {
+            hunt(world);
+            Territory(world);
+            //Energy(world);
         }
     }
 
@@ -58,14 +72,40 @@ public class Bear extends Hunter  {
 
         }
 
+    private void Energy(World world) {
+        if (energy >= 40) {
+            moveRandomly(world);
 
-    //Vurderer hvorvidt bjørnet står på vegetation der kan spises
+        } else if (energy < 40 && energy >= 30) {
+            if (tick % 3 == 0) 
+                moveRandomly(world);
+            
+        } else if (energy < 29 && energy >= 20) {
+            if (tick % 4 == 0) 
+                moveRandomly(world);
+            
+        } else {
+            if (tick % 5 == 0)
+                moveRandomly(world);
+        }
+    }
+
+    //Vurderer hvorvidt bjørnen står på vegetation der kan spises
     private boolean isTileEatable(World world) {
         Location currenLocation = world.getLocation(this);
         Set<Location> surroundingTiles = world.getSurroundingTiles(currenLocation);
             if((world.getNonBlocking(currenLocation) instanceof Grass || world.getNonBlocking(currenLocation) instanceof BerryBush) && !(world.getNonBlocking(currenLocation) instanceof Burrow )){ 
                 return true;
             } else return false;
+    }
+
+    private void Territory(World world) {
+        Set<Location> locations = world.getSurroundingTiles(Loc, 2);
+        List<Location> list = new ArrayList<>(locations);
+        Random r = new Random();
+        int rnd_number = r.nextInt(list.size());
+        Location l = list.get(rnd_number);
+        world.move(this,l);
     }
 
  

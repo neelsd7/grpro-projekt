@@ -15,7 +15,7 @@ import elements.animals.Wolf;
 
 public class BerryBush implements Growable, Actor, DynamicDisplayInformationProvider {
     int tick;
-    int RegrowTimer;
+    int RegrowTimer = 40;
     boolean isEaten;
 
     public void act(World world) {
@@ -40,8 +40,8 @@ public class BerryBush implements Growable, Actor, DynamicDisplayInformationProv
 
     public DisplayInformation getInformation() {
         DisplayInformation DI;
-        if (RegrowTimer >= 40) {
-            DI = new DisplayInformation(Color.green, "berries-bush", true);
+        if (isEaten == false) {
+            DI = new DisplayInformation(Color.green, "bush-berries", true);
             return DI;
         } else {
             DI = new DisplayInformation(Color.green, "bush", true);

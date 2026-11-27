@@ -47,7 +47,7 @@ public class Wolf extends Hunter {
         // K2-1c: står der en kanin ved siden af, spiser ulven den. Ellers går den videre
         if (!eatAnimals(world)) {
             hunt(world);
-            energy = energy + 40;
+            moveRandomly(world);
         }
     }
  

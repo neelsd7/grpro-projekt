@@ -4,6 +4,7 @@ import itumulator.simulator.Actor;
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -12,6 +13,11 @@ import itumulator.world.Location;
 
 public class Hunter extends Animal {
     protected int energy;
+    protected int tick;
+
+    public void act(World world) {
+
+    }
 
     public void hunt(World world) {
         Location here = world.getLocation(this);
@@ -29,12 +35,6 @@ public class Hunter extends Animal {
                 }
             }
         }
-        // ingen kanin i nærheden, gå et tilfældigt sted hen
-        List<Location> empty = new ArrayList<>(world.getEmptySurroundingTiles(here));
-        if (!empty.isEmpty()) {
-            Random r = new Random();
-            world.move(this, empty.get(r.nextInt(empty.size())));
-        }
     }
         if (world.getTile(here) instanceof Bear) {
         for (Location l : world.getSurroundingTiles(here, 3)) {
@@ -50,13 +50,16 @@ public class Hunter extends Animal {
                 }
             }
         }
-        // ingen kanin i nærheden, gå et tilfældigt sted hen
-        List<Location> empty = new ArrayList<>(world.getEmptySurroundingTiles(here));
-        if (!empty.isEmpty()) {
-            Random r = new Random();
-            world.move(this, empty.get(r.nextInt(empty.size())));
-            }
         }  
+    }
+
+    protected void moveRandomly (World world) {
+        Set<Location> neighbours = world.getEmptySurroundingTiles();
+        List<Location> list = new ArrayList<>(neighbours);
+        Random rnd = new Random();
+        int rnd_number = rnd.nextInt(list.size());
+        Location l = list.get(rnd_number);
+        world.move(this,l);
     }
 
     public boolean eatAnimals(World world) {
@@ -81,4 +84,5 @@ public class Hunter extends Animal {
 
         return false;
     }
+
 }
